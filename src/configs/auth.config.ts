@@ -3,7 +3,8 @@ import { NextAuthConfig } from 'next-auth'
 import { ZodError } from 'zod'
 import Credentials from 'next-auth/providers/credentials'
 import bcrypt from 'bcryptjs'
-import { getUser } from '@/actions/users'
+import { prisma } from '@/lib/prisma'
+import { APP_ROUTES } from '@/constants/routes'
 
 export default {
   providers: [
@@ -16,10 +17,18 @@ export default {
         try {
           const { email, password } = await loginSchema.parseAsync(credentials)
 
-          const hashPassword = await bcrypt.hash(password, 10)
+          const user = await prisma.user.findFirst({
+            where: {
+              email: email
+            }
+          })
 
-          const user = await getUser(email, hashPassword)
           if (!user) return null
+
+          const hashPassword = await bcrypt.compare(password, user?.password || '')
+
+          if (!hashPassword) return null
+
           return {
             id: user.id,
             name: user.name,
@@ -33,36 +42,31 @@ export default {
         }
       }
     })
-  ]
-  // session: {
-  //   strategy: 'jwt'
-  // },
-  // pages: {
-  //   signIn: APP_ROUTES.LOGIN
-  // },
-  // callbacks: {
-  //   async jwt({ token, user }) {
-  //     if (user) {
-  //       token.id = user.id as string
-  //       // @ts-expect-error role exists via module augmentation
-  //       token.role = user.role ?? null
-  //       // @ts-expect-error permissions exists via module augmentation
-  //       token.permissions = user.permissions ?? []
-  //     }
-  //     return token
-  //   },
-  //   async session({ session, token }) {
-  //     if (session.user) {
-  //       console.log('session user')
-  //       // session.user.id = token.id as string
-  //       // // @ts-expect-error augmented
-  //       // session.user.role = (token.role as string | null) ?? null
-  //       // // @ts-expect-error augmented
-  //       // session.user.permissions = (token.permissions as string[] | null) ?? []
-  //     }
-  //     return session
-  //   }
-  // },
+  ],
+  session: {
+    strategy: 'jwt'
+  },
+  pages: {
+    signIn: APP_ROUTES.LOGIN
+  },
+  callbacks: {
+    async jwt({ token, account }) {
+      if (account?.provider === 'credentials') {
+        token.credentials = true
+      }
+      return token
+    },
+    async session({ session, token }) {
+      if (session.user) {
+        session.user.id = token.id as string
+        // @ts-expect-error augmented
+        session.user.role = (token.role as string | null) ?? null
+        // @ts-expect-error augmented
+        session.user.permissions = (token.permissions as string[] | null) ?? []
+      }
+      return session
+    }
+  },
   // cookies: {},
-  // secret: process.env.AUTH_SECRET
+  secret: process.env.AUTH_SECRET
 } satisfies NextAuthConfig

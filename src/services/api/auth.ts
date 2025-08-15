@@ -1,20 +1,18 @@
 import { API_ROUTES } from '@/constants/routes'
 import { LoginInput, RegisterInput, AuthResponse, User } from '@/types/auth.type'
+import { signIn, signOut } from 'next-auth/react'
 
 export const authApi = {
-  login: async (data: LoginInput): Promise<AuthResponse> => {
-    const response = await fetch(API_ROUTES.AUTH.LOGIN, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
+  login: async (data: LoginInput): Promise<void> => {
+    const response = await signIn('credentials', {
+      email: data.email,
+      password: data.password,
+      redirect: false
     })
 
-    if (!response.ok) {
-      const error = await response.json()
-      throw new Error(error.message || 'Login failed')
+    if (response && response?.error) {
+      throw new Error('Login failed')
     }
-
-    return response.json()
   },
 
   register: async (data: RegisterInput): Promise<AuthResponse> => {
@@ -33,7 +31,7 @@ export const authApi = {
   },
 
   logout: async (): Promise<void> => {
-    await fetch(API_ROUTES.AUTH.LOGOUT, { method: 'POST' })
+    await signOut()
   },
 
   me: async (): Promise<User> => {

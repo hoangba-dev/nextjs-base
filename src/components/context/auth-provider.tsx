@@ -21,7 +21,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const { mutateAsync: logoutMutation } = useLogoutMutation()
 
   const login = async (email: string, password: string) => {
-    await loginMutation({ email, password }, {})
+    await loginMutation({ email, password })
   }
 
   const logout = async () => {

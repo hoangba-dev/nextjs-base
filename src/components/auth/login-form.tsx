@@ -1,5 +1,4 @@
 'use client'
-
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from '@/components/ui/button'
@@ -8,9 +7,12 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { loginSchema, type LoginInput } from '@/types/auth.type'
 import { Loader2, Mail, Lock } from 'lucide-react'
-import { login } from '@/actions/auth'
+import { useRouter } from 'next/navigation'
+import { useAuth } from '../context/auth-provider'
 
 export function LoginForm() {
+  const { login } = useAuth()
+  const router = useRouter()
   const form = useForm<LoginInput>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -21,7 +23,7 @@ export function LoginForm() {
 
   const onSubmit = async (data: LoginInput) => {
     try {
-      // await login(data.email, data.password)
+      await login(data.email, data.password)
     } catch (error) {
       form.setError('root', {
         message: error instanceof Error ? error.message : 'Login failed'

@@ -9,7 +9,7 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { DashboardSidebar } from './dashboard-sidebar'
 
 export function DashboardHeader() {
-  const { logout, user } = useAuth()
+  const { user, logout } = useAuth()
 
   const handleLogout = async () => {
     await logout()
