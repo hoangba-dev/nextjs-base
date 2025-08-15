@@ -39,13 +39,14 @@ export interface User {
   email: string
   role: UserRole
   status: UserStatus
+  permissions?: string[]
   phone?: string
   company?: string
   position?: string
   avatar?: string
   lastLoginAt?: string
-  createdAt: string
-  updatedAt: string
+  createdAt?: string
+  updatedAt?: string
 }
 
 // User list response with pagination

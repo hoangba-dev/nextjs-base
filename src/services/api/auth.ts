@@ -1,21 +1,20 @@
-import { API_ROUTES } from '@/constants/api'
-import { LoginInput, RegisterInput, AuthResponse, User } from '@/types/auth'
-import { signIn } from '../../../auth'
+import { API_ROUTES } from '@/constants/routes'
+import { LoginInput, RegisterInput, AuthResponse, User } from '@/types/auth.type'
 
 export const authApi = {
   login: async (data: LoginInput): Promise<AuthResponse> => {
-    const user = await signIn('credentials', {
-      redirect: false,
-      email: data.email,
-      password: data.password
+    const response = await fetch(API_ROUTES.AUTH.LOGIN, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
     })
-    if (!user || !user.ok) {
-      throw new Error(user?.error || 'Login failed')
+
+    if (!response.ok) {
+      const error = await response.json()
+      throw new Error(error.message || 'Login failed')
     }
-    return {
-      user: user.user,
-      token: user.token
-    }
+
+    return response.json()
   },
 
   register: async (data: RegisterInput): Promise<AuthResponse> => {

@@ -6,13 +6,11 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { useAuth } from '../context/auth-provider'
-import { loginSchema, type LoginInput } from '@/types/auth'
+import { loginSchema, type LoginInput } from '@/types/auth.type'
 import { Loader2, Mail, Lock } from 'lucide-react'
+import { login } from '@/actions/auth'
 
 export function LoginForm() {
-  const { login } = useAuth()
-
   const form = useForm<LoginInput>({
     resolver: zodResolver(loginSchema),
     defaultValues: {

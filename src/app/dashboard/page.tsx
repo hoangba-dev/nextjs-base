@@ -1,6 +1,6 @@
 import { DashboardStats } from '@/components/dashboard/dashboard-stats'
 
-export default function DashboardPage() {
+export default async function DashboardPage() {
   return (
     <div className='space-y-6'>
       <div>

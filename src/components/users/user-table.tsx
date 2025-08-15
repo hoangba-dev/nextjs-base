@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react'
 import { ColumnDef } from '@tanstack/react-table'
-import { User } from '@/types/user'
+import { User } from '@/types/user.type'
 import { DataTable } from '@/components/common'
 import { StatusBadge } from '@/components/common'
 import { EditButton, DeleteButton } from '@/components/common'

@@ -7,7 +7,7 @@ import { Sheet, SheetContent } from '@/components/ui/sheet'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
-import { APP_ROUTES } from '@/constants/api'
+import { APP_ROUTES } from '@/constants/routes'
 
 const navigation = [
   { name: 'Dashboard', href: APP_ROUTES.DASHBOARD, icon: Home },

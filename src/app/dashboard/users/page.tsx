@@ -1,9 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { CreateUserInput, UpdateUserInput, User, UserFilters } from '@/types/user'
-import { useUsers } from '@/hooks/use-users'
-import { useUserStats } from '@/hooks/use-users'
+import { CreateUserInput, UpdateUserInput, User, UserFilters } from '@/types/user.type'
 import { PageHeader, PageHeaderActions, PageHeaderButton } from '@/components/common'
 import { UserTable } from '@/components/users/user-table'
 import { UserForm } from '@/components/users/user-form'
@@ -24,52 +22,26 @@ export default function UsersPage() {
     dateRange: ''
   })
 
-  // Fetch users and stats
-  const {
-    users,
-    total,
-    page,
-    pageSize,
-    totalPages,
-    isLoading,
-    createUser,
-    updateUser,
-    deleteUser,
-    bulkDeleteUsers,
-    isCreating,
-    isUpdating,
-    isDeleting,
-    isBulkDeleting
-  } = useUsers(filters)
-
-  const { stats, isLoading: statsLoading } = useUserStats()
-
-  // Handle form submissions
   const handleCreateUser = async (data: CreateUserInput) => {
-    await createUser(data)
     setShowCreateForm(false)
   }
 
   const handleUpdateUser = async (data: UpdateUserInput) => {
     if (editingUser) {
-      await updateUser(editingUser.id, data)
       setEditingUser(null)
     }
   }
 
-  const handleDeleteUser = async (userId: string) => {
-    await deleteUser(userId)
-  }
+  const handleDeleteUser = async (userId: string) => {}
 
   const handleBulkDeleteUsers = async (userIds: string[]) => {
-    await bulkDeleteUsers(userIds)
     setSelectedUserIds([])
   }
 
   // Handle user selection
   const handleSelectAll = (checked: boolean) => {
     if (checked) {
-      setSelectedUserIds(users.map((user) => user.id))
+      // setSelectedUserIds(users.map((user) => user.id))
     } else {
       setSelectedUserIds([])
     }
@@ -118,7 +90,7 @@ export default function UsersPage() {
       </PageHeader>
 
       {/* Stats Cards */}
-      <div className='grid grid-cols-1 md:grid-cols-4 gap-6'>
+      {/* <div className='grid grid-cols-1 md:grid-cols-4 gap-6'>
         <SectionCard title='Total Users' variant='outlined'>
           <div className='flex items-center space-x-2'>
             <Users className='h-8 w-8 text-blue-600' />
@@ -158,20 +130,20 @@ export default function UsersPage() {
             </div>
           </div>
         </SectionCard>
-      </div>
+      </div> */}
 
       {/* Bulk Actions */}
       <BulkActions
         selectedIds={selectedUserIds}
-        totalItems={users.length}
+        totalItems={0}
         actions={bulkActions}
         onSelectAll={handleSelectAll}
         onClearSelection={handleClearSelection}
       />
 
       {/* Users Table */}
-      <SectionCard title={`Users (${total})`} variant='default'>
-        <UserTable users={users} onEdit={setEditingUser} onDelete={handleDeleteUser} isLoading={isLoading} />
+      <SectionCard title={`Users (${0})`} variant='default'>
+        <UserTable users={[]} onEdit={setEditingUser} onDelete={handleDeleteUser} isLoading={false} />
       </SectionCard>
 
       {/* Create User Dialog */}
@@ -184,7 +156,7 @@ export default function UsersPage() {
             mode='create'
             onSubmit={(data: CreateUserInput) => handleCreateUser(data)}
             onCancel={() => setShowCreateForm(false)}
-            isLoading={isCreating}
+            isLoading={false}
           />
         </DialogContent>
       </Dialog>
@@ -201,7 +173,7 @@ export default function UsersPage() {
               mode='edit'
               onSubmit={(data: UpdateUserInput) => handleUpdateUser(data)}
               onCancel={() => setEditingUser(null)}
-              isLoading={isUpdating}
+              isLoading={false}
             />
           )}
         </DialogContent>

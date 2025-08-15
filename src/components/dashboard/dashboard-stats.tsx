@@ -3,7 +3,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Users, TrendingUp, CreditCard, Activity } from 'lucide-react'
-import { QUERY_KEYS } from '@/constants/api'
+import { QUERY_KEYS } from '@/constants/query-keys'
 
 // Mock API function - replace with real API calls
 const fetchDashboardStats = async () => {
