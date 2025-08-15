@@ -1,5 +1,4 @@
 import { User, CreateUserInput, UpdateUserInput, UserListResponse, UserFilters } from '@/types/user'
-import { API_ROUTES } from '@/constants/api'
 
 // Mock data for development - replace with real API calls
 const mockUsers: User[] = [

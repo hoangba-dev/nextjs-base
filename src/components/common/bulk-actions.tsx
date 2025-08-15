@@ -57,10 +57,7 @@ export function BulkActions({
         {showSelectAll && (
           <div className='flex items-center space-x-2'>
             <Checkbox
-              checked={isAllSelected}
-              ref={(ref) => {
-                if (ref) ref.indeterminate = isIndeterminate
-              }}
+              checked={isAllSelected ? true : isIndeterminate ? 'indeterminate' : false}
               onCheckedChange={handleSelectAll}
             />
             <span className='text-sm text-muted-foreground'>Select All ({totalItems})</span>

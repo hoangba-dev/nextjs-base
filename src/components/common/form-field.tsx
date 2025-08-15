@@ -1,8 +1,9 @@
 'use client'
 
 import { forwardRef } from 'react'
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
+import { FormField, FormLabel } from '@/components/ui/form'
 import { cn } from '@/lib/utils'
+import { ControllerProps, FieldValues, Path } from 'react-hook-form'
 
 interface FormFieldProps {
   name: string
@@ -38,15 +39,15 @@ export const FormFieldComponent = forwardRef<HTMLDivElement, FormFieldProps>(
 FormFieldComponent.displayName = 'FormFieldComponent'
 
 // Wrapper for useForm
-export function FormFieldWrapper({
+export function FormFieldWrapper<T extends FieldValues>({
   control,
   name,
   render,
   ...props
 }: {
-  control: any
-  name: string
-  render: (props: any) => React.ReactNode
+  control: ControllerProps<T>['control']
+  name: Path<T>
+  render: ControllerProps<T>['render'] // đúng type của Controller
   [key: string]: any
 }) {
   return <FormField control={control} name={name} render={render} {...props} />
