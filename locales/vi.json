@@ -1,0 +1,21 @@
+{
+  "dashboard": {},
+  "not-found": {
+    "title": "Trang không tồn tại",
+    "description": "Xin lỗi, chúng tôi không thể tìm thấy trang bạn đang tìm kiếm. Có thể trang đã được di chuyển hoặc không còn tồn tại.",
+    "home": "Về trang chủ",
+    "back": "Quay lại",
+    "contact-prefix": "Nếu bạn cho rằng đây là lỗi, vui lòng",
+    "contact-link": "liên hệ với chúng tôi"
+  },
+  "global-error": {
+    "title": "Đã xảy ra lỗi - v0 App",
+    "oops": "Oops!",
+    "unexpected-error": "Đã xảy ra lỗi không mong muốn",
+    "description": "Chúng tôi rất xin lỗi vì sự bất tiện này. Một lỗi hệ thống đã xảy ra và chúng tôi đang làm việc để khắc phục.",
+    "details-title": "Chi tiết lỗi (Development)",
+    "retry": "Thử lại",
+    "home": "Về trang chủ",
+    "support": "Nếu vấn đề vẫn tiếp tục, vui lòng liên hệ với chúng tôi"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "dashboard": {},
+  "not-found": {
+    "title": "Page Not Found",
+    "description": "Sorry, we couldn't find the page you were looking for. It might have been moved or no longer exists.",
+    "home": "Go to Home",
+    "back": "Go Back",
+    "contact-prefix": "If you believe this is an error, please",
+    "contact-link": "contact us"
+  },
+  "global-error": {
+    "title": "An error has occurred - v0 App",
+    "oops": "Oops!",
+    "unexpected-error": "An unexpected error occurred",
+    "description": "We apologize for the inconvenience. A system error has occurred and we are working to fix it.",
+    "details-title": "Error details (Development)",
+    "retry": "Retry",
+    "home": "Go to Home",
+    "support": "If the issue persists, please contact us"
+  }
+}
