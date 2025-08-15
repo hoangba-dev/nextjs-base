@@ -21,7 +21,7 @@ export function LoginForm() {
 
   const onSubmit = async (data: LoginInput) => {
     try {
-      await login(data.email, data.password)
+      // await login(data.email, data.password)
     } catch (error) {
       form.setError('root', {
         message: error instanceof Error ? error.message : 'Login failed'
