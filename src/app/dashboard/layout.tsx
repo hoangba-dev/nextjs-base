@@ -1,17 +1,16 @@
 'use client'
 
 import { DashboardHeader, DashboardSidebar } from '@/components/dashboard'
+import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar'
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className='min-h-screen bg-background'>
+    <SidebarProvider>
       <DashboardSidebar />
-      <div className='lg:pl-72'>
+      <SidebarInset>
         <DashboardHeader />
-        <main className='py-10'>
-          <div className='px-4 sm:px-6 lg:px-8'>{children}</div>
-        </main>
-      </div>
-    </div>
+        <div className='flex flex-1 flex-col gap-4 p-2'>{children}</div>
+      </SidebarInset>
+    </SidebarProvider>
   )
 }

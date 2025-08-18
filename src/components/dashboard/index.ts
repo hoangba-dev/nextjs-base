@@ -1,3 +1,7 @@
 export * from './dashboard-sidebar'
 export * from './dashboard-header'
 export * from './dashboard-stats'
+export * from './nav-main'
+export * from './nav-user'
+export * from './nav-projects'
+export * from './nav-secondary'

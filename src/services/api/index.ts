@@ -1,2 +1,2 @@
-export { authApi } from './auth'
-export { dashboardApi } from './dashboard'
+export { authApi } from './auth.api'
+export { dashboardApi } from './dashboard.api'

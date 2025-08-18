@@ -29,13 +29,7 @@ export default {
 
           if (!hashPassword) return null
 
-          return {
-            id: user.id,
-            name: user.name,
-            email: user.email,
-            role: user.role,
-            permissions: user.permissions
-          }
+          return user
         } catch (err) {
           if (err instanceof ZodError) return null
           return null
@@ -50,18 +44,21 @@ export default {
     signIn: APP_ROUTES.LOGIN
   },
   callbacks: {
-    async jwt({ token, account }) {
+    async jwt({ token, account, user }) {
       if (account?.provider === 'credentials') {
         token.credentials = true
+      }
+      if (user) {
+        token.id = user.id
+        token.role = user.role
+        token.permissions = user.permissions
       }
       return token
     },
     async session({ session, token }) {
       if (session.user) {
         session.user.id = token.id as string
-        // @ts-expect-error augmented
-        session.user.role = (token.role as string | null) ?? null
-        // @ts-expect-error augmented
+        session.user.role = token.role as string
         session.user.permissions = (token.permissions as string[] | null) ?? []
       }
       return session

@@ -67,7 +67,7 @@ export interface UserFiltersState {
 }
 
 // User table column definition
-export interface UserTableColumn {
+export interface UsersTableColumn {
   key: keyof User
   label: string
   sortable?: boolean

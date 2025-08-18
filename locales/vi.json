@@ -17,5 +17,50 @@
     "retry": "Thử lại",
     "home": "Về trang chủ",
     "support": "Nếu vấn đề vẫn tiếp tục, vui lòng liên hệ với chúng tôi"
+  },
+  "routes": {
+    "dashboard": "Dashboard",
+    "products": "Sản phẩm",
+    "home": "Trang chủ",
+    "contact": "Liên hệ",
+    "users": "Người dùng"
+  },
+  "login": {
+    "button": "Đăng nhập",
+    "email": "Email",
+    "password": "Mật khẩu",
+    "title": "Đăng nhập vào hệ thống",
+    "description": "Chào mừng trở lại! Đăng nhập để truy cập Bảng điều khiển",
+    "placeholder": {
+      "email": "example@gmail.com",
+      "password": "Nhập mật khẩu"
+    },
+    "validate": {
+      "email": {
+        "require": "Vui lòng nhập địa chỉ email",
+        "invalid": "Địa chỉ email không hợp lệ"
+      },
+      "password": {
+        "require": "Vui lòng nhập mật khẩu",
+        "min": "Mật khẩu ít nhất 6 ký tự",
+        "max": "Mật khẩu nhiều nhất 16 ký tự"
+      }
+    }
+  },
+  "messages": {
+    "login-success": "Đăng nhập thành công",
+    "login-failed": "Đăng nhập không thành công, vui lòng kiểm tra lại thông tin đăng nhập của bạn",
+    "logout-success": "Đăng xuất thành công",
+    "logout-failed": "Đăng xuất không thành công, vui lòng thử lại sau"
+  },
+  "users": {
+    "title": "Quản lý người dùng",
+    "add-user": "Thêm người dùng",
+    "edit-user": "Chỉnh sửa người dùng",
+    "delete-user": "Xóa người dùng",
+    "user-list": "Danh sách người dùng",
+    "user-details": "Chi tiết người dùng",
+    "search-placeholder": "Tìm kiếm người dùng...",
+    "no-users-found": "Không tìm thấy người dùng nào"
   }
 }

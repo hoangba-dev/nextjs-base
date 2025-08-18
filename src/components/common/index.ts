@@ -45,7 +45,11 @@ export { ConfirmDialog, DeleteConfirmDialog, UpdateConfirmDialog } from './confi
 export { LoadingSpinner, PageLoadingSpinner, TableLoadingSpinner, ButtonLoadingSpinner } from './loading-spinner'
 
 // Data Input
-export { SearchInput, AdvancedSearch } from './search-input'
+export { PasswordInput } from './app-input/password-input'
+export { SearchInput, AdvancedSearch } from './app-input/search-input'
 export { FilterDropdown, createStatusFilter, createRoleFilter } from './filter-dropdown'
 export { DateRangePicker, createDateFilter } from './date-range-picker'
 export { BulkActions, commonBulkActions } from './bulk-actions'
+
+// Forms
+export { AppForm } from './app-form'

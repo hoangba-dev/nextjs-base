@@ -2,8 +2,8 @@
 
 import { createContext, useContext } from 'react'
 import { User } from '@/types/auth.type'
-import { useMeQuery } from '@/services/queries'
 import { useLoginMutation, useLogoutMutation } from '@/services/mutations'
+import { useAppStore } from '@/stores/app-store'
 
 interface AuthContextType {
   user: User | null
@@ -16,9 +16,11 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const { user, isLoading } = useMeQuery()
   const { mutateAsync: loginMutation } = useLoginMutation()
   const { mutateAsync: logoutMutation } = useLogoutMutation()
+
+  const user = useAppStore((state) => state.user)
+  console.log('user', user)
 
   const login = async (email: string, password: string) => {
     await loginMutation({ email, password })
@@ -29,9 +31,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   const value: AuthContextType = {
-    user: user || null,
-    isLoading,
-    isAuthenticated: !!user,
+    user: null,
+    isLoading: false,
     login,
     logout
   }

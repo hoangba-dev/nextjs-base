@@ -9,6 +9,7 @@ export const authApi = {
       password: data.password,
       redirect: false
     })
+    console.log('response', response)
 
     if (response && response?.error) {
       throw new Error('Login failed')

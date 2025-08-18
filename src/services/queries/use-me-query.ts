@@ -1,7 +1,7 @@
 'use client'
 import { QUERY_KEYS } from '@/constants/query-keys'
 import { useQuery } from '@tanstack/react-query'
-import { authApi } from '../api/auth'
+import { authApi } from '../api/auth.api'
 
 export const useMeQuery = () => {
   const data = useQuery({

@@ -17,5 +17,50 @@
     "retry": "Retry",
     "home": "Go to Home",
     "support": "If the issue persists, please contact us"
+  },
+  "routes": {
+    "dashboard": "Dashboard",
+    "products": "Products",
+    "home": "Home",
+    "contact": "Contact",
+    "users": "Users"
+  },
+  "login": {
+    "button": "Login",
+    "email": "Email",
+    "password": "Password",
+    "title": "Log in to the system",
+    "description": "Welcome back! Log in to access the Dashboard",
+    "placeholder": {
+      "email": "example@gmail.com",
+      "password": "Enter your password"
+    },
+    "validate": {
+      "email": {
+        "require": "Please enter your email address",
+        "invalid": "Invalid email address"
+      },
+      "password": {
+        "require": "Please enter your password",
+        "min": "Password must be at least 6 characters",
+        "max": "Password must be at most 16 characters"
+      }
+    }
+  },
+  "messages": {
+    "login-success": "Login successful",
+    "login-failed": "Login failed, please check your credentials",
+    "logout-success": "Logout successful",
+    "logout-failed": "Logout failed, please try again later"
+  },
+  "users": {
+    "title": "User Management",
+    "add-user": "Add User",
+    "edit-user": "Edit User",
+    "delete-user": "Delete User",
+    "search-placeholder": "Search users by name or email",
+    "user-list": "User List",
+    "user-details": "User Details",
+    "no-users-found": "No users found"
   }
 }

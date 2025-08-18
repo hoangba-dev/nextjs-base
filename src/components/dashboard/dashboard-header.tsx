@@ -1,66 +1,19 @@
-'use client'
-
-import { Menu as MenuIcon, Bell, User, LogOut } from 'lucide-react'
-import { useAuth } from '@/components/context/auth-provider'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { Button } from '@/components/ui/button'
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
-import { DashboardSidebar } from './dashboard-sidebar'
+import { SidebarTrigger } from '@/components/ui/sidebar'
+import { cn } from '@/lib/utils'
+import React from 'react'
+import { ModeToggle } from '../common/app-toggle/mode-toggle'
 
 export function DashboardHeader() {
-  const { user, logout } = useAuth()
-
-  const handleLogout = async () => {
-    await logout()
-  }
-
   return (
-    <div className='sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 border-b bg-background px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8'>
-      {/* Mobile menu button */}
-      <Sheet>
-        <SheetTrigger asChild>
-          <Button type='button' variant='ghost' size='sm' className='-m-2.5 p-2.5 text-muted-foreground lg:hidden'>
-            <span className='sr-only'>Open sidebar</span>
-            <MenuIcon className='h-6 w-6' aria-hidden='true' />
-          </Button>
-        </SheetTrigger>
-        <SheetContent side='left' className='w-72 p-0'>
-          <DashboardSidebar />
-        </SheetContent>
-      </Sheet>
-
-      <div className='flex flex-1 gap-x-4 self-stretch lg:gap-x-6'>
-        <div className='flex flex-1' />
-        <div className='flex items-center gap-x-4 lg:gap-x-6'>
-          <Button
-            type='button'
-            variant='ghost'
-            size='sm'
-            className='-m-2.5 p-2.5 text-muted-foreground hover:text-foreground'
-          >
-            <span className='sr-only'>View notifications</span>
-            <Bell className='h-6 w-6' aria-hidden='true' />
-          </Button>
-
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant='ghost' className='relative h-8 w-8 rounded-full'>
-                <Avatar className='h-8 w-8'>
-                  <AvatarImage src='' alt={user?.name || ''} />
-                  <AvatarFallback>
-                    <User className='h-4 w-4' />
-                  </AvatarFallback>
-                </Avatar>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className='w-56' align='end' forceMount>
-              <DropdownMenuItem onClick={handleLogout}>
-                <LogOut className='mr-2 h-4 w-4' />
-                <span>Sign out</span>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+    <div
+      className={cn(
+        'bg-background/40 sticky top-0 z-50 flex h-(--header-height) shrink-0 items-center gap-2 border-b backdrop-blur-md transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-(--header-height) md:rounded-tl-xl md:rounded-tr-xl'
+      )}
+    >
+      <div className='flex w-full items-center gap-1 px-4 lg:gap-2'>
+        <SidebarTrigger />
+        <div className='ml-auto flex items-center gap-2'>
+          <ModeToggle />
         </div>
       </div>
     </div>

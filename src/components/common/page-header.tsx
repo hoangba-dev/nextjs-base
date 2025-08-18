@@ -13,7 +13,7 @@ interface PageHeaderProps {
   showSeparator?: boolean
 }
 
-export function PageHeader({ title, description, children, className, showSeparator = true }: PageHeaderProps) {
+export function PageHeader({ title, description, children, className, showSeparator = false }: PageHeaderProps) {
   return (
     <div className={cn('space-y-4', className)}>
       <div className='flex items-center justify-between'>

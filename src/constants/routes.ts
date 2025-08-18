@@ -1,3 +1,6 @@
+import { NavItem } from '@/types/dashboard.type'
+import { LayoutDashboardIcon, PackageIcon, UsersIcon } from 'lucide-react'
+
 export const API_ROUTES = {
   AUTH: {
     LOGIN: '/api/auth/login',
@@ -63,3 +66,16 @@ export const APP_ROUTE_GROUPS = {
   ],
   AUTH_ONLY: [APP_ROUTES.LOGIN, APP_ROUTES.REGISTER]
 } as const
+
+export const sidebarRouteMap: Record<string, NavItem> = {
+  [APP_ROUTES.DASHBOARD]: {
+    path: APP_ROUTES.DASHBOARD,
+    title: 'routes.dashboard',
+    icon: LayoutDashboardIcon
+  },
+  [APP_ROUTES.USERS]: {
+    path: APP_ROUTES.USERS,
+    title: 'routes.users',
+    icon: UsersIcon
+  }
+}

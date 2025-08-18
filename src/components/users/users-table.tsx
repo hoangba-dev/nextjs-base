@@ -2,30 +2,53 @@
 
 import { useState, useMemo } from 'react'
 import { ColumnDef } from '@tanstack/react-table'
-import { User } from '@/types/user.type'
-import { DataTable } from '@/components/common'
+import { UpdateUserInput, User } from '@/types/user.type'
+import { BulkActions, commonBulkActions, DataTable, SectionCard } from '@/components/common'
 import { StatusBadge } from '@/components/common'
 import { EditButton, DeleteButton } from '@/components/common'
 import { ConfirmDialog } from '@/components/common'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import { formatDistanceToNow } from 'date-fns'
-import { MoreHorizontal, User as UserIcon } from 'lucide-react'
+import { User as UserIcon } from 'lucide-react'
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '../ui/dialog'
+import { UsersForm } from './users-form'
+import { useTranslations } from 'next-intl'
 
-interface UserTableProps {
-  users: User[]
-  onEdit: (user: User) => void
-  onDelete: (userId: string) => void
+interface UsersTableProps {
   isLoading?: boolean
 }
 
-export function UserTable({ users, onEdit, onDelete, isLoading }: UserTableProps) {
+export function UsersTable({ isLoading }: UsersTableProps) {
+  const t = useTranslations('users')
   const [userToDelete, setUserToDelete] = useState<User | null>(null)
+  const [editingUser, setEditingUser] = useState<User | null>(null)
 
-  const handleDelete = (userId: string) => {
-    onDelete(userId)
-    setUserToDelete(null)
+  const [selectedUserIds, setSelectedUserIds] = useState<string[]>([])
+
+  const handleUpdateUser = async (data: UpdateUserInput) => {
+    if (editingUser) {
+      setEditingUser(null)
+    }
   }
+
+  const handleDeleteUser = async (userId: string) => {}
+
+  // Handle user selection
+  const handleSelectAll = (checked: boolean) => {
+    if (checked) {
+      // setSelectedUserIds(users.map((user) => user.id))
+    } else {
+      setSelectedUserIds([])
+    }
+  }
+
+  const handleClearSelection = () => {
+    setSelectedUserIds([])
+  }
+
+  // Bulk actions
+  const bulkActions = [commonBulkActions.delete, commonBulkActions.archive]
 
   const columns: ColumnDef<User>[] = useMemo(
     () => [
@@ -111,14 +134,14 @@ export function UserTable({ users, onEdit, onDelete, isLoading }: UserTableProps
           const user = row.original
           return (
             <div className='flex items-center space-x-2'>
-              <EditButton onClick={() => onEdit(user)} size='sm' />
+              <EditButton onClick={() => handleUpdateUser(user)} size='sm' />
               <DeleteButton onClick={() => setUserToDelete(user)} size='sm' />
             </div>
           )
         }
       }
     ],
-    [onEdit]
+    []
   )
 
   if (isLoading) {
@@ -136,16 +159,25 @@ export function UserTable({ users, onEdit, onDelete, isLoading }: UserTableProps
 
   return (
     <>
-      <DataTable
-        columns={columns}
-        data={users}
-        searchKey='name'
-        searchPlaceholder='Search users...'
-        showColumnToggle
-        showSearch
-        showPagination
-        pageSize={10}
+      <BulkActions
+        selectedIds={selectedUserIds}
+        totalItems={0}
+        actions={bulkActions}
+        onSelectAll={handleSelectAll}
+        onClearSelection={handleClearSelection}
       />
+      <SectionCard title={`Users (${0})`} variant='default'>
+        <DataTable
+          columns={columns}
+          data={[]}
+          searchKey='name'
+          searchPlaceholder='Search users...'
+          showColumnToggle
+          showSearch
+          showPagination
+          pageSize={10}
+        />
+      </SectionCard>
 
       {/* Delete confirmation dialog */}
       <ConfirmDialog
@@ -153,11 +185,29 @@ export function UserTable({ users, onEdit, onDelete, isLoading }: UserTableProps
         description={`Are you sure you want to delete "${userToDelete?.name}"? This action cannot be undone.`}
         confirmText='Delete'
         variant='destructive'
-        onConfirm={() => handleDelete(userToDelete?.id ?? '')}
+        onConfirm={() => handleDeleteUser(userToDelete?.id ?? '')}
         onCancel={() => setUserToDelete(null)}
         open={!!userToDelete}
         onOpenChange={(open: boolean) => !open && setUserToDelete(null)}
       />
+
+      {/* Edit User Dialog */}
+      <Dialog open={!!editingUser} onOpenChange={(open) => !open && setEditingUser(null)}>
+        <DialogContent className='max-w-4xl max-h-[90vh] overflow-y-auto'>
+          <DialogHeader>
+            <DialogTitle>Edit User</DialogTitle>
+          </DialogHeader>
+          {editingUser && (
+            <UsersForm
+              user={editingUser}
+              mode='edit'
+              onSubmit={(data: UpdateUserInput) => handleUpdateUser(data)}
+              onCancel={() => setEditingUser(null)}
+              isLoading={false}
+            />
+          )}
+        </DialogContent>
+      </Dialog>
     </>
   )
 }

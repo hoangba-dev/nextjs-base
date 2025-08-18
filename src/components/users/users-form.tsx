@@ -20,14 +20,20 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Loader2, User as UserIcon } from 'lucide-react'
 
-interface UserFormProps<T extends 'create' | 'edit'> {
+interface UsersFormProps<T extends 'create' | 'edit'> {
   user?: User
   onSubmit: (data: T extends 'create' ? CreateUserInput : UpdateUserInput) => Promise<void>
   onCancel: () => void
   isLoading?: boolean
   mode: T
 }
-export function UserForm<T extends 'create' | 'edit'>({ user, onSubmit, onCancel, isLoading, mode }: UserFormProps<T>) {
+export function UsersForm<T extends 'create' | 'edit'>({
+  user,
+  onSubmit,
+  onCancel,
+  isLoading,
+  mode
+}: UsersFormProps<T>) {
   const schema = mode === 'create' ? createUserSchema : updateUserSchema
 
   const form = useForm({
